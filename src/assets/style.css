@@ -1,0 +1,66 @@
+/* 
+    author : adnan lutfi
+    Color Reference
+        blue        - 007bc1
+        dark blue   - 004a75
+        orange      - ff8000
+        dark-orange - cc6600
+        smoke-grey  - e5e5e5
+    font family from bootstrap
+*/
+body {
+    background: #fff;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 16px;
+    line-height: 1.375;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+body, html {
+    height: 100vh;
+}
+*, html, body, div, form {
+    padding: 0;
+    margin: 0;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+a, img { border: 0; }
+a { text-decoration: none; }
+/* edit bootstrap */
+.container,
+.container-fluid {
+    font-size: 19px;
+}
+.navbar-brand {
+    white-space: normal;
+    font-size: 33px;
+}
+/* footer */
+.footer {
+    padding: 15px 15px;
+}
+.footer-text {
+    padding: 15px 15px;
+}
+/* media queries */
+/* Device = Desktops */
+@media (min-width: 1281px) {
+    .navbar-brand { white-space: nowrap; }
+}
+/* Device = Tablets, Ipads (portrait) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-brand { white-space: nowrap; }
+}
+/* Device = Tablets, Ipads (landscape) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .navbar-brand { white-space: nowrap; }
+}
+/* Device = Low Resolution Tablets, Mobiles (Landscape) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .navbar-brand { white-space: nowrap; }
+}

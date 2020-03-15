@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Penularan Coronavirus Disease (COVID-19) - Indonesia</title>
+    <link rel="stylesheet" href="src/assets/bootstrap.css">
+    <link rel="stylesheet" href="src/assets/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+                <a class="navbar-brand" href="#">Informasi Terkini COVID-19</a>
+            </nav>
+        </header>
+        <section>
+            <div class="container-fluid">
+                <div class="row mt-3">
+                    <div class="col-md">
+                        <h5 class="text-center mb-3">
+                            Update Tanggal: <strong>{{ date }}</strong>
+                        </h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Informasi penularan COVID-19 di Indonesia kami ambil dari&nbsp;
+                                <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">Coronavirus COVID-19 Global Cases by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)</a>
+                            </li>
+                            <li class="list-group-item">
+                                Downloadable database:&nbsp;
+                                GitHub:&nbsp;
+                                <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
+                                >Here</a>.&nbsp;
+                                Feature layer:&nbsp;
+                                <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank">Here</a>.
+                                JSON:&nbsp;
+                                <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank">Here</a>.
+                            </li>
+                            <li class="list-group-item">
+                                data diupdate 3 kali sehari
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md">
+                        <div class="card mb-3 bg-dark text-white">
+                            <div class="card-body">
+                              <h3 class="card-title text-center display-4 text-warning">{{ terkonfirmasi }}</h3>
+                              <h5 class="card-text text-center text-warning">Terkonfirmasi</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="card mb-3 bg-dark text-white">
+                            <div class="card-body">
+                              <h3 class="card-title text-center display-4 text-success">{{ sembuh }}</h3>
+                              <h5 class="card-text text-center text-success">Sembuh</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="card mb-3 bg-dark text-white">
+                            <div class="card-body">
+                              <h3 class="card-title text-center display-4 text-danger">{{ meninggal }}</h3>
+                              <h5 class="card-text text-center text-danger">Meniggal</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="footer-text">
+                <p class="text-center">&copy; 2020 - Adnan Lutfi - Website Enthusiast</p>
+            </div>
+        </footer>
+    </div>
+    <script src="src/assets/jquery.js"></script>
+    <script src="src/assets/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="src/assets/index.js"></script>
+</body>
+</html>
