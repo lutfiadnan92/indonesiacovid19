@@ -1,6 +1,6 @@
 const cacheName = 'indonesia_covid19';
 const filesToCache = [
-    './',
+    '/',
     '/index.html',
     '/src/assets/bootstrap.min.css',
     '/src/assets/style.css',
