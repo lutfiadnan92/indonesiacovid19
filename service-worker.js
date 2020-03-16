@@ -1,13 +1,13 @@
 const cacheName = 'indonesia_covid19';
 const filesToCache = [
-    '/',
-    '/index.html',
-    '/src/assets/bootstrap.min.css',
-    '/src/assets/style.css',
+    './',
+    './index.html',
+    './src/assets/bootstrap.min.css',
+    './src/assets/style.css',
     'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
     'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js',
-    '/src/index.js',
-    '/src/main.js',
+    './src/index.js',
+    './src/main.js',
 ];
 
 /* Start the service worker and cache all of the app's content */
