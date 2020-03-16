@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Informasi Penularan Coronavirus Disease (COVID-19) - Indonesia</title>
+    <link rel="apple-touch-icon" href="src/images/hello-icon-128.png">
+    <link rel="stylesheet" href="src/assets/bootstrap.min.css" async>
+    <link rel="stylesheet" href="src/assets/style.css" async>
+    <link rel="shortcut icon" href="src/images/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Penularan Coronavirus Disease (COVID-19) - Indonesia</title>
-    <link rel="stylesheet" href="src/assets/bootstrap.css">
-    <link rel="stylesheet" href="src/assets/style.css">
+    <meta name="Description" content="Informasi seputar penyebaran covid-19 di indonesia">
+    <meta name="theme-color" content="#17a2b8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Informasi Covid-19 Indonesia">
+    <meta name="msapplication-TileImage" content="src/images/hello-icon-144.png">
+    <meta name="msapplication-TileColor" content="#004a75">
 </head>
 <body>
     <div id="app">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-                <a class="navbar-brand" href="#">Informasi Terkini COVID-19</a>
+                <a class="navbar-brand" href="#">Informasi Terkini Penularan COVID-19 - Indonesia</a>
             </nav>
         </header>
         <section>
@@ -23,18 +33,15 @@
                         </h5>
                         <ul class="list-group">
                             <li class="list-group-item">
-                                Informasi penularan COVID-19 di Indonesia kami ambil dari&nbsp;
-                                <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">Coronavirus COVID-19 Global Cases by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)</a>
+                                Informasi penularan COVID-19 di Indonesia kami ambil dari Coronavirus COVID-19 Global Cases by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU), klik
+                                <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6" target="_blank" rel="noreferrer">disini</a>
                             </li>
                             <li class="list-group-item">
-                                Downloadable database:&nbsp;
-                                GitHub:&nbsp;
+                                Downloadable database: 
                                 <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
-                                >Here</a>.&nbsp;
-                                Feature layer:&nbsp;
-                                <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank">Here</a>.
-                                JSON:&nbsp;
-                                <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank">Here</a>.
+                                rel="noreferrer">GitHub</a>,
+                                <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank" rel="noreferrer">Feature layer</a>,
+                                <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank" rel="noreferrer">JSON</a>.
                             </li>
                             <li class="list-group-item">
                                 data diupdate 3 kali sehari
@@ -76,10 +83,10 @@
             </div>
         </footer>
     </div>
+    <script src="src/main.js"></script>
     <script src="src/assets/jquery.js"></script>
-    <script src="src/assets/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="src/assets/index.js"></script>
+    <script src="src/index.js"></script>
 </body>
 </html>
