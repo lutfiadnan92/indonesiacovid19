@@ -17,7 +17,7 @@ const app = new Vue({
             this.loadPath()
             setTimeout(() => {
                 this.loadData()
-            }, 3000);
+            }, 1000);
         })
     },
     methods: {
