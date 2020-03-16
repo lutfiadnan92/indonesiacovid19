@@ -1,28 +1,28 @@
 {
-    "name": "Berita Covid-19",
+    "name": "Covid19 Indonesia",
     "short_name": "Covid-19",
     "icons": [{
-            "src": "src/images/hello-icon-128.png",
+            "src": "src/images/covid-icon-128.png",
             "sizes": "128x128",
             "type": "image/png"
         }, {
-            "src": "src/images/hello-icon-144.png",
+            "src": "src/images/covid-icon-144.png",
             "sizes": "144x144",
             "type": "image/png"
         }, {
-            "src": "src/images/hello-icon-152.png",
+            "src": "src/images/covid-icon-152.png",
             "sizes": "152x152",
             "type": "image/png"
         }, {
-            "src": "src/images/hello-icon-192.png",
+            "src": "src/images/covid-icon-192.png",
             "sizes": "192x192",
             "type": "image/png"
         }, {
-            "src": "src/images/hello-icon-256.png",
+            "src": "src/images/covid-icon-256.png",
             "sizes": "256x256",
             "type": "image/png"
         }, {
-            "src": "src/images/hello-icon-512.png",
+            "src": "src/images/covid-icon-512.png",
             "sizes": "512x512",
             "type": "image/png"
     }],

@@ -7,7 +7,8 @@ const filesToCache = [
     '/src/assets/jquery.js',
     'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
     'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js',
-    '/src/assets/index.js',
+    '/src/index.js',
+    '/src/main.js',
 ];
 
 /* Start the service worker and cache all of the app's content */
