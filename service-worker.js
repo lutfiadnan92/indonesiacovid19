@@ -1,7 +1,7 @@
 const cacheName = 'indonesia_covid19';
 const filesToCache = [
     '/',
-    '/index.html',
+    'index.html',
     '/src/assets/bootstrap.min.css',
     '/src/assets/style.css',
     'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
