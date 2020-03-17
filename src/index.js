@@ -24,7 +24,7 @@ const app = new Vue({
         async loadPath() {
             await axios({
                 method: 'get',
-                url: 'https://api.github.com/repos/CSSEGISandData/COVID-19/git/trees/e22872e7e9ea17b968386c79437a431ebec09d7d'
+                url: 'https://api.github.com/repos/CSSEGISandData/COVID-19/git/trees/68141a0e97eab1c27130c75810d06f36e0ac925c'
             }).then(res => {
                 res.data.tree.shift(); res.data.tree.pop();
                 const path = res.data.tree.splice(-1)
