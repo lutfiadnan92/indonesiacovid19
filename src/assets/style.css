@@ -39,6 +39,7 @@ a { text-decoration: none; }
 .navbar-brand {
     white-space: normal;
     font-size: 23px;
+    cursor: pointer;
 }
 /* footer */
 .footer {
@@ -56,17 +57,18 @@ a { text-decoration: none; }
         max-width: 1366px;
         font-size: 16px;
     }
-    .display-4 {
-        font-size: 35px;
-    }
 }
 /* Device = Tablets, Ipads (portrait) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .navbar-brand { white-space: nowrap; }
+    .container,
+    .container-fluid { font-size: 16px; }
 }
 /* Device = Tablets, Ipads (landscape) */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .navbar-brand { white-space: nowrap; }
+    .container,
+    .container-fluid { font-size: 16px; }
 }
 /* Device = Low Resolution Tablets, Mobiles (Landscape) */
 @media (min-width: 481px) and (max-width: 767px) {

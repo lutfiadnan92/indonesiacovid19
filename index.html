@@ -21,11 +21,23 @@
 </head>
 <body>
     <div id="app">
+        <div 
+            class="progress rounded-0"
+            :style="loading.style"
+            v-show="loading.status"
+        >
+            <div
+                :class="`progress-bar w-${loading.value}`"
+                role="progressbar"
+                aria-valuemax="100"
+                aria-valuemin="0"
+            ></div>
+        </div>
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-info">
                 <a
                     class="navbar-brand"
-                    href="./index.html"
+                    @click="refresh"
                 >
                     Informasi Terkini Penularan COVID-19 - Indonesia
                 </a>
@@ -58,78 +70,34 @@
                                 <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank" rel="noreferrer">JSON</a>.
                             </li>
                             <li class="list-group-item">
-                                Data kami update 3 kali sehari
+                                Otomatis update setiap hari
                             </li>
                             <li class="list-group-item">
-                                Update tanggal berdasarkan waktu Swiss (GMT + 1)
+                                Update tanggal berdasarkan (GMT+1)
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md">
-                        <div class="card mb-3 border-warning shadow">
-                            <div class="card-body">
+                <div class="row mt-4">
+                    <div class="col-md mb-3" v-for="(item, index) in dataArr" :key="index">
+                        <div :class="['card shadow h-100', item.cardStyle]">
+                            <div class="card-body pt-1 pb-1">
                                 <div
                                     class="d-flex justify-content-center"
-                                    v-if="terkonfirmasi === 0"
+                                    v-if="item.value === 0"
                                 >
                                     <div class="spinner-grow text-dark" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
                                 <h1 
-                                    class="card-title text-center text-warning display-4"
+                                    :class="['text-center display-4', item.textStyle]"
                                     v-else
-                                    v-text="terkonfirmasi"
+                                    v-text="item.value"
                                 ></h1>
                             </div>
-                            <div class="card-footer bg-light">
-                                <h5 class="card-text text-center text-warning">Terkonfirmasi</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="card mb-3 border-success shadow">
-                            <div class="card-body">
-                                <div
-                                    class="d-flex justify-content-center"
-                                    v-if="sembuh === 0"
-                                >
-                                    <div class="spinner-grow text-dark" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                                <h1 
-                                    class="card-title text-center text-success display-4"
-                                    v-else
-                                    v-text="sembuh"
-                                ></h1>
-                            </div>
-                            <div class="card-footer">
-                                <h5 class="card-text text-center text-success">Sembuh</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="card mb-3 border-danger shadow">
-                            <div class="card-body">
-                                <div
-                                    class="d-flex justify-content-center"
-                                    v-if="meninggal === 0"
-                                >
-                                    <div class="spinner-grow text-dark" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                                <h1 
-                                    class="card-title text-center text-danger display-4"
-                                    v-else
-                                    v-text="meninggal"
-                                ></h1>
-                            </div>
-                            <div class="card-footer">
-                                <h5 class="card-text text-center text-danger">Meninggal</h5>
+                            <div class="card-footer pt-1 pb-1">
+                                <h5 :class="['text-center', item.textStyle]" v-text="item.text"></h5>
                             </div>
                         </div>
                     </div>
@@ -145,7 +113,7 @@
     <!-- development mode -->
     <!-- <script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- production mode -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="src/main.js"></script>
     <script defer src="src/index.js"></script>
