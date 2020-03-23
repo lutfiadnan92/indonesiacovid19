@@ -6,9 +6,9 @@ new Vue({
         return {
             date: '',
             dataArr: [
-                { id: 1, cardStyle: 'border-warning', textStyle: 'text-warning', text: 'Terkonfirmasi', value: 0},
-                { id: 2, cardStyle: 'border-danger', textStyle: 'text-danger', text: 'Meninggal', value: 0 },
-                { id: 3, cardStyle: 'border-success', textStyle: 'text-success', text: 'Sembuh', value: 0 }
+                { id: 1, cardStyle: 'border-warning', textStyle: 'text-warning', text: 'Terkonfirmasi', value: 0},                
+                { id: 2, cardStyle: 'border-success', textStyle: 'text-success', text: 'Sembuh', value: 0 },
+                { id: 3, cardStyle: 'border-danger', textStyle: 'text-danger', text: 'Meninggal', value: 0 }
             ],
             github: {
                 user: 'CSSEGISandData/',
@@ -49,22 +49,56 @@ new Vue({
         loadData() {
             const vm = this
             // get master branch
+            // axios.get(vm.github.repoLink + vm.github.user + vm.github.repo + 'branches/master')
+            // .then(res => {
+            //     // get commit sha
+            //     axios.get(vm.github.repoLink + vm.github.user + vm.github.repo +'commits/' + res.data.commit.sha)
+            //     .then(res => {
+            //         const filesArr = res.data
+            //         vm.date = res.data.commit.author.date.split('T')[0]
+            //         return filesArr.files.filter((v,i,a) => {
+            //             axios.get(vm.github.rawLink + vm.github.user + vm.github.repo + filesArr.sha + '/' + a[i].filename, { responseType: 'text' })
+            //             .then(res => {
+            //                 const dataArr = vm.csvToJson(res.data)
+            //                 return dataArr.filter((a,b,c) => {
+            //                     if(c[b].CountryRegion === 'Indonesia') {
+            //                         console.log(a)
+            //                         const { ProvinceState,CountryRegion,Lat,Long, ...obj} = a
+            //                         vm.dataArr[i].value = Object.values(obj)[Object.values(obj).length - 1]
+            //                     }
+            //                 })
+            //             })
+            //         })
+            //     })
+            // }).catch(err => {
+            //     console.log(err)
+            // })
             axios.get(vm.github.repoLink + vm.github.user + vm.github.repo + 'branches/master')
             .then(res => {
-                // get commit sha
-                axios.get(vm.github.repoLink + vm.github.user + vm.github.repo +'commits/' + res.data.commit.sha)
-                .then(res => {
-                    const filesArr = res.data
-                    vm.date = res.data.commit.author.date.split('T')[0]
-                    return filesArr.files.filter((v,i,a) => {
-                        axios.get(vm.github.rawLink + vm.github.user + vm.github.repo + filesArr.sha + '/' + a[i].filename, { responseType: 'text' })
+                vm.date = res.data.commit.commit.author.date.split('T')[0]
+                axios.get(res.data.commit.commit.tree.url)
+                .then(res=> {
+                    axios.get(res.data.tree[3].url)
+                    .then(res => {
+                        axios.get(res.data.tree[1].url)
                         .then(res => {
-                            const dataArr = vm.csvToJson(res.data)
-                            return dataArr.filter((a,b,c) => {
-                                if(c[b].CountryRegion === 'Indonesia') {
-                                    const { ProvinceState,CountryRegion,Lat,Long, ...obj} = a
-                                    vm.dataArr[i].value = Object.values(obj)[Object.values(obj).length - 1]
-                                }
+                            const fileArry = res.data.tree;
+                            fileArry.shift(); fileArry.pop();
+                            const path = fileArry.splice(-1)[0].path.split('.')[0];
+                            axios({
+                                method: 'get',
+                                url: vm.github.rawLink + vm.github.user + vm.github.repo + 'master/csse_covid_19_data/csse_covid_19_daily_reports/' + path + '.csv',
+                                responseType: 'text'
+                            }).then(res => {
+                                const dataArr = vm.csvToJson(res.data)
+                                return dataArr.filter((a,b,c) => {
+                                    if(c[b].CountryRegion === 'Indonesia') {
+                                        const { ProvinceState,CountryRegion,Latitude,Longitude,LastUpdate, ...obj} = a
+                                        vm.dataArr[0].value = obj.Confirmed
+                                        vm.dataArr[1].value = obj.Recovered
+                                        vm.dataArr[2].value = obj.Deaths
+                                    }
+                                })
                             })
                         })
                     })
