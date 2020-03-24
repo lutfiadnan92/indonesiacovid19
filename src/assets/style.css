@@ -37,10 +37,13 @@ a { text-decoration: none; }
     font-size: 19px;
 }
 .navbar-brand {
-    white-space: normal;
     font-size: 23px;
     cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 210px;
 }
+.navbar-nav a { cursor: pointer; }
 /* footer */
 .footer {
     padding: 15px 15px;
@@ -48,29 +51,22 @@ a { text-decoration: none; }
 .footer-text {
     padding: 15px 15px;
 }
+/* Device = Tablets, Ipads (portrait) */
+@media screen and (min-width: 768px) {
+    .navbar-brand { 
+        text-overflow: initial;
+        overflow: visible;
+        width: auto;
+    }
+    .container,
+    .container-fluid { font-size: 16px; }
+}
 /* media queries */
 /* Device = Desktops */
-@media (min-width: 1281px) {
-    .navbar-brand { white-space: nowrap; }
+@media screen and (min-width: 1281px) {
     .container,
     .container-fluid {
         max-width: 1366px;
         font-size: 16px;
     }
-}
-/* Device = Tablets, Ipads (portrait) */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .navbar-brand { white-space: nowrap; }
-    .container,
-    .container-fluid { font-size: 16px; }
-}
-/* Device = Tablets, Ipads (landscape) */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    .navbar-brand { white-space: nowrap; }
-    .container,
-    .container-fluid { font-size: 16px; }
-}
-/* Device = Low Resolution Tablets, Mobiles (Landscape) */
-@media (min-width: 481px) and (max-width: 767px) {
-    .navbar-brand { white-space: nowrap; }
 }
