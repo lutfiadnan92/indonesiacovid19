@@ -3,7 +3,7 @@ Vue.component('header-page', {
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-gradient-info">
             <a
-                href="/"
+                href="/indonesiacovid19"
                 class="navbar-brand"
                 @click="home"
             >
