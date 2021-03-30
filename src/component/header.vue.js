@@ -35,7 +35,7 @@ Vue.component('header-page', {
     },
     methods: {
         home() {
-            location.replace('/')
+            location.replace('/indonesiacovid19')
         }
     }
 })
