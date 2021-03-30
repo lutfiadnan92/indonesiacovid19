@@ -1,6 +1,6 @@
 const Home = Vue.component('Home', {
-    template : `
-        <div class="container-fluid">
+    template: `
+        <div class="container">
             <div class="row mt-3">
                 <div class="col-md">
                     <h5 class="text-center mb-3">
@@ -25,17 +25,11 @@ const Home = Vue.component('Home', {
                             <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank" rel="noreferrer">Feature layer</a>,
                             <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank" rel="noreferrer">JSON</a>.
                         </li>
-                        <li class="list-group-item">
-                            Otomatis update setiap hari
-                        </li>
-                        <li class="list-group-item">
-                            Update tanggal berdasarkan (GMT+1)
-                        </li>
                     </ul>
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md mb-3" v-for="(item, index) in dataArr" :key="index">
+                <div class="col-12 col-md-6 mb-3" v-for="(item, index) in dataArr" :key="index">
                     <div :class="['card shadow h-100', item.cardStyle]">
                         <div class="card-body pt-1 pb-1">
                             <div
@@ -49,7 +43,7 @@ const Home = Vue.component('Home', {
                             <h1 
                                 :class="['text-center display-4', item.textStyle]"
                                 v-else
-                                v-text="item.value"
+                                v-text="currency(item.value)"
                             ></h1>
                         </div>
                         <div class="card-footer pt-1 pb-1">
@@ -64,8 +58,8 @@ const Home = Vue.component('Home', {
         return {
             date: '',
             dataArr: [
-                { id: 1, cardStyle: 'border-warning', textStyle: 'text-warning', text: 'Terkonfirmasi', value: 0},
-                { id: 2, cardStyle: 'border-primary', textStyle: 'text-primary', text: 'Perawatan', value: 0},
+                { id: 1, cardStyle: 'border-warning', textStyle: 'text-warning', text: 'Terkonfirmasi', value: 0 },
+                { id: 2, cardStyle: 'border-primary', textStyle: 'text-primary', text: 'Perawatan', value: 0 },
                 { id: 3, cardStyle: 'border-success', textStyle: 'text-success', text: 'Sembuh', value: 0 },
                 { id: 4, cardStyle: 'border-danger', textStyle: 'text-danger', text: 'Meninggal', value: 0 }
             ],
@@ -87,11 +81,11 @@ const Home = Vue.component('Home', {
             const lines = csv.split('\n')
             const result = []
             const headers = lines[0].split(',')
-            lines.map(function(line, indexLine){
+            lines.map(function(line, indexLine) {
                 if (indexLine < 1) return // Jump header line
                 const obj = {}
                 const currentline = line.split(",")
-                headers.map(function(header, indexHeader){
+                headers.map(function(header, indexHeader) {
                     obj[header] = currentline[indexHeader]
                 })
                 result.push(obj)
@@ -99,42 +93,59 @@ const Home = Vue.component('Home', {
             result.pop()
             return result
         },
-        loadData() {
-            const vm = this
-            axios.get(vm.github.repoLink + vm.github.user + vm.github.repo + 'branches/master')
-            .then(res => {
-                vm.date = res.data.commit.commit.author.date.split('T')[0]
-                axios.get(res.data.commit.commit.tree.url)
-                .then(res=> {
-                    axios.get(res.data.tree[3].url)
-                    .then(res => {
-                        axios.get(res.data.tree[1].url)
-                        .then(res => {
-                            const fileArry = res.data.tree;
-                            fileArry.shift(); fileArry.pop();
-                            const path = fileArry.splice(-1)[0].path.split('.')[0];
-                            axios({
-                                method: 'get',
-                                url: vm.github.rawLink + vm.github.user + vm.github.repo + 'master/csse_covid_19_data/csse_covid_19_daily_reports/' + path + '.csv',
-                                responseType: 'text'
-                            }).then(res => {
-                                const dataArr = vm.csvToJson(res.data)
-                                return dataArr.filter((a,b,c) => {
-                                    if(c[b].Country_Region === 'Indonesia') {
-                                        const {FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Last_Update,Combined_Key, ...obj} = a
-                                        vm.dataArr[0].value = obj.Confirmed
-                                        vm.dataArr[1].value = obj.Active
-                                        vm.dataArr[2].value = obj.Recovered
-                                        vm.dataArr[3].value = obj.Deaths
-                                    }
-                                })
-                            })
-                        })
-                    })
-                })
-            }).catch(err => {
-                console.log(err)
-            })
+        currency(num) {
+          if (!isNaN(num)) {
+            num = Math.round(num);
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+          }
+        },
+        async loadData() {
+            const self = this
+            const dataCovid19 = await axios.get('https://pomber.github.io/covid19/timeseries.json')
+            const data = dataCovid19.data.Indonesia.splice(-1,1)
+            console.log(data)
+            self.date = data[0].date
+            self.dataArr[0].value = data[0].confirmed
+            self.dataArr[1].value = parseInt(data[0].confirmed) - parseInt(data[0].recovered) - parseInt(data[0].deaths)
+            self.dataArr[2].value = data[0].recovered
+            self.dataArr[3].value = data[0].deaths
+            // axios.get(vm.github.repoLink + vm.github.user + vm.github.repo + 'branches/master')
+            //     .then(res => {
+            //         vm.date = res.data.commit.commit.author.date.split('T')[0]
+            //         axios.get(res.data.commit.commit.tree.url)
+            //             .then(res => {
+            //                 axios.get(res.data.tree[3].url)
+            //                     .then(res => {
+            //                         axios.get(res.data.tree[2].url)
+            //                             .then(res => {
+            //                                 const fileArry = res.data.tree;
+            //                                 fileArry.shift();
+            //                                 fileArry.pop();
+            //                                 console.log(fileArry)
+            //                                 const path = fileArry.splice(-1)[0].path.split('.')[0];
+            //                                 console.log(path)
+            //                                 axios({
+            //                                     method: 'get',
+            //                                     url: vm.github.rawLink + vm.github.user + vm.github.repo + 'master/csse_covid_19_data/csse_covid_19_daily_reports/' + path + '.csv',
+            //                                     responseType: 'text'
+            //                                 }).then(res => {
+            //                                     const dataArr = vm.csvToJson(res.data)
+            //                                     return dataArr.filter((a, b, c) => {
+            //                                         if (c[b].Country_Region === 'Indonesia') {
+            //                                             const { FIPS, Admin2, Province_State, Country_Region, Lat, Long_, Last_Update, Combined_Key, ...obj } = a
+            //                                             vm.dataArr[0].value = obj.Confirmed
+            //                                             vm.dataArr[1].value = obj.Active
+            //                                             vm.dataArr[2].value = obj.Recovered
+            //                                             vm.dataArr[3].value = obj.Deaths
+            //                                         }
+            //                                     })
+            //                                 })
+            //                             })
+            //                     })
+            //             })
+            //     }).catch(err => {
+            //         console.log(err)
+            //     })
         }
     }
 });
