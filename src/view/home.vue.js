@@ -1,59 +1,58 @@
 const Home = Vue.component('Home', {
     template: `
-        <div class="container">
-            <div class="row mt-3">
-                <div class="col-md">
-                    <h5 class="text-center mb-3">
-                        Update Tanggal: 
-                        <div
-                            class="spinner-grow text-dark"
-                            role="status"
-                            v-if="date === ''"
-                        >
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <strong v-else v-text="date"></strong>
-                    </h5>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            Informasi penularan COVID-19 di Indonesia kami ambil dari Coronavirus COVID-19 Global Cases by CSSE at Johns Hopkins University, informasi lengkap klik <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6" target="_blank" rel="noreferrer">disini</a>
-                        </li>
-                        <li class="list-group-item">
-                            Downloadable database: 
-                            <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
-                            rel="noreferrer">GitHub</a>,
-                            <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank" rel="noreferrer">Feature layer</a>,
-                            <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank" rel="noreferrer">JSON</a>.
-                        </li>
-                    </ul>
-                </div>
+    <div id="home">
+        <div class="row mt-3">
+            <div class="col-md">
+                <h5 class="text-center mb-3">
+                    Update Tanggal: 
+                    <div
+                        class="spinner-grow text-dark"
+                        role="status"
+                        v-if="date === ''"
+                    >
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <strong v-else v-text="date"></strong>
+                </h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Informasi penularan COVID-19 di Indonesia kami ambil dari Coronavirus COVID-19 Global Cases by CSSE at Johns Hopkins University, informasi lengkap klik <a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6" target="_blank" rel="noreferrer">disini</a>
+                    </li>
+                    <li class="list-group-item">
+                        Downloadable database: 
+                        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
+                        rel="noreferrer">GitHub</a>,
+                        <a href="https://www.arcgis.com/home/item.html?id=c0b356e20b30490c8b8b4c7bb9554e7c" target="_blank" rel="noreferrer">Feature layer</a>,
+                        <a href="https://pomber.github.io/covid19/timeseries.json" target="_blank" rel="noreferrer">JSON</a>.
+                    </li>
+                </ul>
             </div>
-            <div class="row mt-4">
-                <div class="col-12 col-md-6 mb-3" v-for="(item, index) in dataArr" :key="index">
-                    <div :class="['card shadow h-100', item.cardStyle]">
-                        <div class="card-body pt-1 pb-1">
-                            <div
-                                class="d-flex justify-content-center"
-                                v-if="item.value === 0"
-                            >
-                                <div class="spinner-grow text-dark" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-md-6 mb-3" v-for="(item, index) in dataArr" :key="index">
+                <div :class="['card shadow h-100', item.cardStyle]">
+                    <div class="card-body pt-1 pb-1">
+                        <div
+                            class="d-flex justify-content-center"
+                            v-if="item.value === 0"
+                        >
+                            <div class="spinner-grow text-dark" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
-                            <h1 
-                                :class="['text-center display-4', item.textStyle]"
-                                v-else
-                                v-text="currency(item.value)"
-                            ></h1>
                         </div>
-                        <div class="card-footer pt-1 pb-1">
-                            <h5 :class="['text-center', item.textStyle]" v-text="item.text"></h5>
-                        </div>
+                        <h1 
+                            :class="['text-center display-4', item.textStyle]"
+                            v-else
+                            v-text="currency(item.value)"
+                        ></h1>
+                    </div>
+                    <div class="card-footer pt-1 pb-1">
+                        <h5 :class="['text-center', item.textStyle]" v-text="item.text"></h5>
                     </div>
                 </div>
             </div>
         </div>
-    </template>`,
+    </div>`,
     data() {
         return {
             date: '',
@@ -109,43 +108,6 @@ const Home = Vue.component('Home', {
             self.dataArr[1].value = parseInt(data[0].confirmed) - parseInt(data[0].recovered) - parseInt(data[0].deaths)
             self.dataArr[2].value = data[0].recovered
             self.dataArr[3].value = data[0].deaths
-            // axios.get(vm.github.repoLink + vm.github.user + vm.github.repo + 'branches/master')
-            //     .then(res => {
-            //         vm.date = res.data.commit.commit.author.date.split('T')[0]
-            //         axios.get(res.data.commit.commit.tree.url)
-            //             .then(res => {
-            //                 axios.get(res.data.tree[3].url)
-            //                     .then(res => {
-            //                         axios.get(res.data.tree[2].url)
-            //                             .then(res => {
-            //                                 const fileArry = res.data.tree;
-            //                                 fileArry.shift();
-            //                                 fileArry.pop();
-            //                                 console.log(fileArry)
-            //                                 const path = fileArry.splice(-1)[0].path.split('.')[0];
-            //                                 console.log(path)
-            //                                 axios({
-            //                                     method: 'get',
-            //                                     url: vm.github.rawLink + vm.github.user + vm.github.repo + 'master/csse_covid_19_data/csse_covid_19_daily_reports/' + path + '.csv',
-            //                                     responseType: 'text'
-            //                                 }).then(res => {
-            //                                     const dataArr = vm.csvToJson(res.data)
-            //                                     return dataArr.filter((a, b, c) => {
-            //                                         if (c[b].Country_Region === 'Indonesia') {
-            //                                             const { FIPS, Admin2, Province_State, Country_Region, Lat, Long_, Last_Update, Combined_Key, ...obj } = a
-            //                                             vm.dataArr[0].value = obj.Confirmed
-            //                                             vm.dataArr[1].value = obj.Active
-            //                                             vm.dataArr[2].value = obj.Recovered
-            //                                             vm.dataArr[3].value = obj.Deaths
-            //                                         }
-            //                                     })
-            //                                 })
-            //                             })
-            //                     })
-            //             })
-            //     }).catch(err => {
-            //         console.log(err)
-            //     })
         }
     }
 });

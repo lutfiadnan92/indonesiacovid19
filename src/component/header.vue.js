@@ -3,7 +3,6 @@ Vue.component('header-page', {
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-gradient-info">
             <a
-                href="/"
                 class="navbar-brand"
                 @click="home"
             >
@@ -35,7 +34,7 @@ Vue.component('header-page', {
     },
     methods: {
         home() {
-            location.replace('/')
+            location.replace('/indonesiacovid19')
         }
     }
 })

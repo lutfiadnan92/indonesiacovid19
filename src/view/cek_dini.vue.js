@@ -1,6 +1,6 @@
 const CekDini = Vue.component('CekDini', {
     template: `
-        <div class="container-fluid">
+    <div id="cek-dini">
         <div class="row mt-3">
             <div class="col-md">
                 <div class="text-left mb-3">
