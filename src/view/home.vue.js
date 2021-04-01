@@ -102,7 +102,6 @@ const Home = Vue.component('Home', {
             const self = this
             const dataCovid19 = await axios.get('https://pomber.github.io/covid19/timeseries.json')
             const data = dataCovid19.data.Indonesia.splice(-1,1)
-            console.log(data)
             self.date = data[0].date
             self.dataArr[0].value = data[0].confirmed
             self.dataArr[1].value = parseInt(data[0].confirmed) - parseInt(data[0].recovered) - parseInt(data[0].deaths)
